@@ -60,8 +60,40 @@ tokens = [
 patron_unificado = "|".join(f"(?P<{nombre}>{regex})" for nombre, regex in tokens)
 escaner = re.compile(patron_unificado)
 
-def main():
-    print("Esqueleto léxico listo (v1).")
+# ----------------- Tokenización -----------------
 
-if __name__ == "__main__":
+def clasificar_fragmento(texto: str):
+    """
+    Analiza un fragmento sin comas y devuelve lista de (tipo, lexema).
+    """
+    salida = []
+    for m in escaner.finditer(texto):
+        tipo = m.lastgroup
+        lexema = m.group()
+
+        if tipo == "blanco":
+            continue
+
+        if tipo == "identificador":
+            tipo = "palabra_clave" if lexema in palabras_reservadas else "caracter"
+
+        salida.append((tipo, lexema))
+    return salida
+
+def partir_por_comas(linea: str):
+    """
+    Separa por comas, limpia espacios y clasifica cada pieza.
+    """
+    resultado = []
+    for pedazo in linea.split(","):
+        frag = pedazo.strip()
+        if not frag:
+            continue
+        resultado.extend(clasificar_fragmento(frag))
+    return resultado
+
+def main():
+    print("Tokenizador listo (v2). Falta I/O de archivo y menú.")
+
+if _name_ == "_main_":
     main()
