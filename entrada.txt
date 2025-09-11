@@ -1,0 +1,101 @@
+entrada1; !!, @@, 1, <=
+entrada2; +=, &&, (
+entrada3; ||, x, (, contador
+entrada4; 1, ||, valor1, valor1
+entrada5; (, ??, ||, float, float, ]
+entrada6; 1, ;, return, ??
+entrada7; index, /=, ||
+entrada8; *=, !, valor1
+entrada9; ||, if, ], !, !, ??
+entrada10; %=, /=, !!, 2.71, !
+entrada11; {, !!, !
+entrada12; !, !!, !
+entrada13; >=, ||, ||, int, int
+entrada14; int, ??, if, (
+entrada15; }, float, !!, ==, @@, &&
+entrada16; 9.99, ###, &&, index, ]
+entrada17; /=, ), return
+entrada18; 2.71, @@, ||, 42, 999
+entrada19; !, <, while
+entrada20; ==, !!, ||, &&, 0, else
+entrada21; ###, -, ###
+entrada22; {, {, --, /
+entrada23; @@, %, dato_temp, <, ), 42
+entrada24; ;, ###, index, ??, --
+entrada25; <, <, 1, resultado, ??
+entrada26; *, &&, 2.71
+entrada27; ||, 3.14, !, flag
+entrada28; for, return, contador, 100, 42, var123
+entrada29; <, *=, ,, for, ]
+entrada30; &&, ||, (, if, return
+entrada31; ,, contador, return, [
+entrada32; ||, !!, !, 2.71, (
+entrada33; ###, 42, $$
+entrada34; contador, var123, }, 42, ??, !!
+entrada35; <=, 9.99, (, ,, >=
+entrada36; ||, z, 9.99
+entrada37; dato_temp, float, ++, }, return, while
+entrada38; -, 100, index, /, /, <
+entrada39; %, resultado, !!, ||
+entrada40; @@, if, !, !, 999
+entrada41; $$, ||, ||, [, dato_temp, return
+entrada42; @@, dato_temp, &&, 9.99, !!
+entrada43; var123, 0, float
+entrada44; ), resultado, int, =, (
+entrada45; while, 123456, index, %, 9.99
+entrada46; valor1, ###, 1, $$
+entrada47; return, ,, while
+entrada48; $$, [, 0.001
+entrada49; @@, 42, else
+entrada50; z, y, !, for
+entrada51; return, index, 2.71, *, $$, $$
+entrada52; 0, !, index, ###, @@, %
+entrada53; if, <, z
+entrada54; return, --, 123456
+entrada55; while, 42, &&, &&
+entrada56; --, ;, >, $$, }
+entrada57; !=, (, &&, 3.14, y
+entrada58; ??, index, x, @@
+entrada59; 3.14, 1, 2.71, !!, dato_temp
+entrada60; int, %, resultado, ||, x
+entrada61; z, [, ], ++, >=, else
+entrada62; ||, 2.71, !!, ], [, -=
+entrada63; @@, @@, 999, ||
+entrada64; 2.71, dato_temp, contador, !!, 3.14
+entrada65; ###, &&, /=
+entrada66; @@, y, for, !, [, return
+entrada67; ), dato_temp, )
+entrada68; [, z, for, flag, x, @@
+entrada69; dato_temp, resultado, for, 0.001
+entrada70; -, }, contador
+entrada71; valor1, if, ??, 0
+entrada72; &&, else, contador, resultado, return
+entrada73; !!, 123456, return, +=, (
+entrada74; index, 0.001, &&, z, %
+entrada75; --, ??, !
+entrada76; <, ;, ||, ++, *=
+entrada77; @@, 0, [, valor1
+entrada78; $$, valor1, ###, contador
+entrada79; else, @@, [
+entrada80; !, ,, *=, ||, ,, int
+entrada81; !, 9.99, 0.001, ,, else, ,
+entrada82; 0, 42, else
+entrada83; y, var123, ], ,
+entrada84; ,, @@, valor1, if, ??
+entrada85; $$, else, for, for, @@, $$
+entrada86; {, return, 3.14
+entrada87; ||, 2.71, (, &&, ###, ###
+entrada88; ;, $$, <, [
+entrada89; +=, if, float, y, int
+entrada90; dato_temp, 3.14, *=
+entrada91; var123, ###, ||, ||, ??
+entrada92; ###, =, !, !, )
+entrada93; 0.001, <=, for, index, &&, ;
+entrada94; y, ??, dato_temp, dato_temp, !!
+entrada95; flag, +=, ||, ??, $$, @@
+entrada96; (, return, )
+entrada97; y, >=, -, ###, if
+entrada98; ||, ###, 9.99
+entrada99; return, float, @@, -=
+entrada100; ###, ###, 9.99, &&
+entrada101; int, numero, =, 10
