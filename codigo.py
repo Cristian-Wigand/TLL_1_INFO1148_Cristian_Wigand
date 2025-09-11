@@ -63,27 +63,18 @@ escaner = re.compile(patron_unificado)
 # ----------------- Tokenización -----------------
 
 def clasificar_fragmento(texto: str):
-    """
-    Analiza un fragmento sin comas y devuelve lista de (tipo, lexema).
-    """
     salida = []
     for m in escaner.finditer(texto):
         tipo = m.lastgroup
         lexema = m.group()
-
         if tipo == "blanco":
             continue
-
         if tipo == "identificador":
             tipo = "palabra_clave" if lexema in palabras_reservadas else "caracter"
-
         salida.append((tipo, lexema))
     return salida
 
 def partir_por_comas(linea: str):
-    """
-    Separa por comas, limpia espacios y clasifica cada pieza.
-    """
     resultado = []
     for pedazo in linea.split(","):
         frag = pedazo.strip()
@@ -92,8 +83,104 @@ def partir_por_comas(linea: str):
         resultado.extend(clasificar_fragmento(frag))
     return resultado
 
+# ----------------- E/S de archivo -----------------
+
+def cargar_lineas_archivo(ruta: Path):
+    if not ruta.exists():
+        raise FileNotFoundError(f"No se encontró el archivo: {ruta}")
+    lineas = []
+    with ruta.open(encoding="utf-8") as fh:
+        for linea in fh:
+            s = linea.strip()
+            if s:
+                lineas.append(s)
+    if not lineas:
+        raise ValueError("El archivo existe pero está vacío.")
+    return lineas
+
+def limpiar_prefijo(linea: str):
+    # Si hay "entradaN; ..." u otro prefijo con ';', tomar la parte derecha
+    if ";" in linea:
+        _, derecha = linea.split(";", 1)
+        return derecha.strip()
+    return linea
+
+# ----------------- Interfaz y salida -----------------
+
+def imprimir_tabla(pares):
+    print(f"{'N°':<5}{'TOKEN':<25}{'LEXEMA':<25}")
+    print("-" * 60)
+    for i, (tipo, lexema) in enumerate(pares, start=1):
+        print(f"{i:<5}{tipo:<25}{lexema:<25}")
+
+def pedir_opcion_menu_inicial():
+    print("¿Qué quieres procesar del archivo?")
+    print("  [1] Primeras 10  |  [2] Últimas 10  |  [3] Todo")
+    while True:
+        try:
+            opcion = input("Elige una opción (1/2/3): ").strip()
+        except (EOFError, KeyboardInterrupt):
+            print("\nEntrada interrumpida. Saliendo.")
+            return None
+        if opcion == "1":
+            return "primeras"
+        if opcion == "2":
+            return "ultimas"
+        if opcion == "3":
+            return "todo"
+        print("Opción no válida. Intenta nuevamente…")
+
+def seleccionar_segmento(lineas, opcion):
+    n = len(lineas)
+    if opcion == "primeras":
+        indices = range(0, min(10, n))
+    elif opcion == "ultimas":
+        indices = range(max(0, n - 10), n)
+    else:
+        indices = range(0, n)
+    seleccion = []
+    for i in indices:
+        cruda = lineas[i]
+        limpia = limpiar_prefijo(cruda)
+        seleccion.append((i + 1, cruda, limpia))  # 1-based
+    return seleccion
+
+def procesar_y_mostrar(seleccion):
+    for nlinea, cruda, limpia in seleccion:
+        print(f"\n=== Línea {nlinea} ===")
+        print(limpia)
+        pares = partir_por_comas(limpia)
+        imprimir_tabla(pares)
+
+# ----------------- Main -----------------
+
 def main():
-    print("Tokenizador listo (v2). Falta I/O de archivo y menú.")
+    ruta = Path(sys.argv[1]) if len(sys.argv) > 1 else Path("entrada.txt")
+    try:
+        lineas = cargar_lineas_archivo(ruta)
+    except Exception as e:
+        print(f"[ERROR] {e}")
+        return
+
+    print(f"Archivo cargado: {ruta}  (líneas útiles: {len(lineas)})\n")
+
+    while True:
+        opcion = pedir_opcion_menu_inicial()
+        if opcion is None:
+            return
+        seleccion = seleccionar_segmento(lineas, opcion)
+        procesar_y_mostrar(seleccion)
+
+        try:
+            decision = input("\n¿Quieres seguir en el programa o quieres salir? Para salir ingrese 'salir': ").strip().lower()
+        except (EOFError, KeyboardInterrupt):
+            print("\nEntrada interrumpida. Saliendo.")
+            return
+
+        if decision == "salir":
+            print("Hasta luego.")
+            return
+        # cualquier otra cosa → vuelve al menú inicial
 
 if _name_ == "_main_":
     main()
