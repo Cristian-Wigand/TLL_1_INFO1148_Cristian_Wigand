@@ -1,6 +1,7 @@
 import re
 import sys
 from pathlib import Path
+from collections import Counter
 
 # === Léxico (en minúscula) ===
 palabras_reservadas = {"if", "else", "while", "for", "return", "int", "float"}
@@ -99,7 +100,6 @@ def cargar_lineas_archivo(ruta: Path):
     return lineas
 
 def limpiar_prefijo(linea: str):
-    # Si hay "entradaN; ..." u otro prefijo con ';', tomar la parte derecha
     if ";" in linea:
         _, derecha = linea.split(";", 1)
         return derecha.strip()
@@ -142,15 +142,24 @@ def seleccionar_segmento(lineas, opcion):
     for i in indices:
         cruda = lineas[i]
         limpia = limpiar_prefijo(cruda)
-        seleccion.append((i + 1, cruda, limpia))  # 1-based
+        seleccion.append((i + 1, cruda, limpia))
     return seleccion
 
 def procesar_y_mostrar(seleccion):
+    conteo = Counter()
     for nlinea, cruda, limpia in seleccion:
         print(f"\n=== Línea {nlinea} ===")
         print(limpia)
         pares = partir_por_comas(limpia)
         imprimir_tabla(pares)
+        # Acumular conteos por tipo de token
+        conteo.update([tipo for (tipo, _) in pares])
+    # Resumen del lote
+    if conteo:
+        print("\n--- Resumen de tokens en este lote ---")
+        for tipo, cant in sorted(conteo.items()):
+            print(f"{tipo:<25}: {cant}")
+        print("--------------------------------------")
 
 # ----------------- Main -----------------
 
@@ -182,5 +191,5 @@ def main():
             return
         # cualquier otra cosa → vuelve al menú inicial
 
-if _name_ == "_main_":
+if __name__ == "__main__":
     main()
